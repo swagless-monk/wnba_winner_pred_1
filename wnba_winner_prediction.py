@@ -24,15 +24,16 @@ wnba = {'HOU':0, 'NYL':1, 'SAC':2,
         'IND':12, 'MIA':13, 'POR':14, 
         'SEA':15, 'SAS':16, 'CON':17,
         'CHI': 18, 'ATL':19, 'TUL':20}
+season_type = {'Regular':0, 'Playoffs':1}
 
 # Merge dataframes
 all_seasons = [season1, season2, season3]
 season = pd.concat(all_seasons)
 
-print(season.head())
+print(season)
 
 # Drop dates and seasonType
-season = season.drop(columns=['gmDate', 'seasonType'])
+season = season.drop(columns=['gmDate',])
 
 # Convert string columns into numeric columns
 season['matchWinner'] = season['matchWinner'].map(wnba)
@@ -42,6 +43,7 @@ season['teamAbbr'] = season['teamAbbr'].map(wnba)
 season['opptAbbr'] = season['opptAbbr'].map(wnba)
 season['teamRslt'] = season['teamRslt'].map(win_loss)
 season['opptRslt'] = season['opptRslt'].map(win_loss)
+season['seasonType'] = season['seasonType'].map(season_type)
 
 # Split data in X and y
 X = np.array(season.drop(columns=['matchWinner']))
